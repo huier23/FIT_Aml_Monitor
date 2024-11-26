@@ -1,0 +1,32 @@
+# Copyright (c) Microsoft Corporation. All rights reserved.
+# Licensed under the MIT License.
+
+parameters:
+  - name: experiment_name
+    type: string
+  # - name: display_name
+  #   type: string
+  - name: http_endpoint
+    type: string
+  - name: function_code
+    type: string
+
+steps:
+  - task: AzureCLI@2
+    displayName: Invoke Monitor API
+    continueOnError: false
+    inputs: 
+      azureSubscription: $(ado_service_connection_rg) #needs to have access at the RG level 
+      scriptType: bash
+      workingDirectory: $(System.DefaultWorkingDirectory)
+      scriptLocation: inlineScript
+      inlineScript: |
+        echo "Current Job ID is $(run_id) and Experiment ID is ${{ parameters.experiment_name }}"
+        if [[ -n "$(run_id)" && -n "${{ parameters.experiment_name }}" ]]; then
+          request_path="${{ parameters.http_endpoint }}?parent_run_id=$(run_id)&experiment_id=${{ parameters.experiment_name }}&code=${{ parameters.function_code }}"
+          echo "Request path: $request_path"
+          curl -X GET "$request_path"
+        else
+          echo "run_id and experiment_id are empty, no value returned"
+          exit 5
+        fi

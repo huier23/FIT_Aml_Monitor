@@ -1,0 +1,16 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=<sg-name>;AccountKey=<key>;EndpointSuffix=core.windows.net",
+    "TENANT_ID": "",
+    "CLIENT_ID": "",
+    "CLIENT_SECRET": "",
+    "AML_LOCATION": "eastus",
+    "SUBSCRIPTION_ID": "",
+    "RESOURCE_GROUP": "",
+    "WORKSPACE_NAME": "",
+    "JSON_STORE_BLOB_NAME": "",
+    "JSON_STORE_BLOB_KEY": ""
+  }
+}
